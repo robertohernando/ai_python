@@ -163,10 +163,17 @@ def classify_images(images_dir, petlabel_dic, model):
     results_dic = dict()
     for img_file, img_label in petlabel_dic.items():
         class_label = classifier(images_dir + img_file, model).lower()
+        result = 0
         if img_label in class_label:
-            result = 1
-        else:
-            result = 0
+            for label in class_label.split(','):
+                if img_label == label.lower().strip():
+                    result = 1
+                    continue
+                else:
+                    for label_word in label.split(' '):
+                        if img_label == label_word.lower().strip():
+                            result = 1
+                            continue
         results_dic [img_file] = [img_label, class_label, result]
     return(results_dic)
 
