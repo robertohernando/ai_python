@@ -55,12 +55,13 @@ def main():
     # images as 'a dog' or 'not a dog'. This demonstrates if the model can
     # correctly classify dog images as dogs (regardless of breed)
     adjust_results4_isadog(result_dic, in_arg.dogfile)
-    check_classifying_labels_as_dogs(result_dic)
+    # check_classifying_labels_as_dogs(result_dic)
 
-    # TODO: 6. Define calculates_results_stats() function to calculate
+    # 6. Define calculates_results_stats() function to calculate
     # results of run and puts statistics in a results statistics
     # dictionary (results_stats_dic)
-    results_stats_dic = calculates_results_stats()
+    results_stats_dic = calculates_results_stats(result_dic)
+    check_calculating_results(result_dic, results_stats_dic)
 
     # TODO: 7. Define print_results() function to print summary results, 
     # incorrect classifications of dogs and breeds if requested.
@@ -79,7 +80,7 @@ def main():
 
 
 
-# TODO: 6.-to-7. Define all the function below. Notice that the input 
+# TODO: 7. Define all the function below. Notice that the input 
 # parameters and return values have been left in the function's docstrings. 
 # This is to provide guidance for achieving a solution similar to the 
 # instructor provided solution. Feel free to ignore this guidance as long as 
@@ -207,7 +208,6 @@ def adjust_results4_isadog(results_dic, dogsfile):
     Returns:
            None - results_dic is mutable data type so no return needed.
     """           
-    results = dict()
     with open(dogsfile, 'r') as f:
         file_data = f.read()
     for img, result in results_dic.items():
@@ -222,7 +222,7 @@ def adjust_results4_isadog(results_dic, dogsfile):
 
 
 
-def calculates_results_stats():
+def calculates_results_stats(results_dic):
     """
     Calculates statistics of the results of the run using classifier's model 
     architecture on classifying images. Then puts the results statistics in a 
@@ -246,7 +246,35 @@ def calculates_results_stats():
                      name (starting with 'pct' for percentage or 'n' for count)
                      and the value is the statistic's value 
     """
-    pass
+    n_images = len(results_dic)
+    n_dog_images = 0 
+    n_not_dog_images = 0 
+    correct_dog = 0
+    correct_not_dog = 0
+    correct_breed = 0
+
+    for img, result in results_dic.items():
+        if result[3] == 1:
+            n_dog_images +=1
+            if result[4] == 1:
+                correct_dog += 1
+                if result[2] == 1:
+                    correct_breed += 1
+        else:
+            n_not_dog_images += 1
+            if result[4] == 0:
+                correct_not_dog += 1
+
+    calculates_results_stats = dict()
+    calculates_results_stats['n_images'] = n_images
+    calculates_results_stats['n_dogs_img'] = n_dog_images        
+    calculates_results_stats['n_notdogs_img'] = n_not_dog_images        
+    calculates_results_stats['pct_correct_dogs'] = correct_dog / n_dog_images * 100
+    calculates_results_stats['pct_correct_notdogs'] = correct_not_dog / n_not_dog_images * 100
+    calculates_results_stats['pct_correct_breed'] = correct_breed / n_dog_images * 100
+
+    return(calculates_results_stats)
+
 
 
 def print_results():
