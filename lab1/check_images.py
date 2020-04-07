@@ -36,9 +36,10 @@ def main():
     # collecting start time
     start_time = time()
     
-    # TODO: 2. Define get_input_args() function to create & retrieve command
+    # 2. Define get_input_args() function to create & retrieve command
     # line arguments
     in_arg = get_input_args()
+    check_command_line_arguments(in_arg)
     
     # TODO: 3. Define get_pet_labels() function to create pet image labels by
     # creating a dictionary with key=filename and value=file label to be used
@@ -67,7 +68,6 @@ def main():
 
     # 1. Define end_time to measure total program runtime
     # by collecting end time
-    sleep(85)
     end_time = time()
 
     # 1. Define tot_time to computes overall runtime in
@@ -101,7 +101,14 @@ def get_input_args():
     Returns:
      parse_args() -data structure that stores the command line arguments object  
     """
-    pass
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dir', default='pet_images/', type=str, 
+                        help='ruta del directorio de fotos')
+    parser.add_argument('--arch', default='vgg', type=str, 
+                        help='algoritmo de clasificación de imágenes')
+    parser.add_argument('--dogfile', default='dognames.txt', type=str, 
+                        help='fichero de texto con las etiquetas asociadas')
+    return parser.parse_args()
 
 
 def get_pet_labels():
