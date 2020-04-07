@@ -36,25 +36,26 @@ def main():
     # 2. Define get_input_args() function to create & retrieve command
     # line arguments
     in_arg = get_input_args()
-    check_command_line_arguments(in_arg)
+    #check_command_line_arguments(in_arg)
     
     # 3. Define get_pet_labels() function to create pet image labels by
     # creating a dictionary with key=filename and value=file label to be used
-    # to check the accuracy of the classifier function
+    # to check the accuracy of the classifier function    
     answers_dic = get_pet_labels(in_arg.dir)
-    check_creating_pet_image_labels(answers_dic)
+    # check_creating_pet_image_labels(answers_dic)
 
-    # Define classify_images() function to create the classifier 
+    # 4. Define classify_images() function to create the classifier 
     # labels with the classifier function using in_arg.arch, comparing the 
     # labels, and creating a dictionary of results (result_dic)
     result_dic = classify_images(in_arg.dir, answers_dic, in_arg.arch)
-    check_classifying_images(result_dic)
+    # check_classifying_images(result_dic)
 
-    # TODO: 5. Define adjust_results4_isadog() function to adjust the results
+    # 5. Define adjust_results4_isadog() function to adjust the results
     # dictionary(result_dic) to determine if classifier correctly classified
     # images as 'a dog' or 'not a dog'. This demonstrates if the model can
     # correctly classify dog images as dogs (regardless of breed)
-    adjust_results4_isadog()
+    adjust_results4_isadog(result_dic, in_arg.dogfile)
+    check_classifying_labels_as_dogs(result_dic)
 
     # TODO: 6. Define calculates_results_stats() function to calculate
     # results of run and puts statistics in a results statistics
@@ -78,7 +79,7 @@ def main():
 
 
 
-# TODO: 2.-to-7. Define all the function below. Notice that the input 
+# TODO: 6.-to-7. Define all the function below. Notice that the input 
 # parameters and return values have been left in the function's docstrings. 
 # This is to provide guidance for achieving a solution similar to the 
 # instructor provided solution. Feel free to ignore this guidance as long as 
@@ -178,7 +179,7 @@ def classify_images(images_dir, petlabel_dic, model):
     return(results_dic)
 
 
-def adjust_results4_isadog():
+def adjust_results4_isadog(results_dic, dogsfile):
     """
     Adjusts the results dictionary to determine if classifier correctly 
     classified images 'as a dog' or 'not a dog' especially when not a match. 
@@ -206,7 +207,19 @@ def adjust_results4_isadog():
     Returns:
            None - results_dic is mutable data type so no return needed.
     """           
-    pass
+    results = dict()
+    with open(dogsfile, 'r') as f:
+        file_data = f.read()
+    for img, result in results_dic.items():
+        idx3 = idx4 = 0
+        if result[0] in file_data:
+            idx3 = 1
+        if result[1] in file_data:
+            idx4 = 1
+        result.append(idx3)
+        result.append(idx4)
+        
+
 
 
 def calculates_results_stats():
