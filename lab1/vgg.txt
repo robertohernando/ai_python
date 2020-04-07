@@ -1,0 +1,17 @@
+
+
+*** Results Summary for CNN Model Architecture VGG ***
+            N Images:  40
+        N Dog Images:  33
+    N Not-Dog Images:   7
+ 
+    pct_correct_dogs:  90.9
+ pct_correct_notdogs: 100.0
+   pct_correct_breed:  84.8
+Real: cat                          Classifier: lynx, catamount               
+Real: cat                          Classifier: tabby, tabby cat              
+Real: cat                          Classifier: egyptian cat                  
+Real: beagle                       Classifier: walker hound, walker foxhound 
+Real: great pyrenees               Classifier: kuvasz                        
+
+** Total Elapsed Runtime: 0:1:4

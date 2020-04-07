@@ -1,0 +1,18 @@
+
+
+*** Results Summary for CNN Model Architecture RESNET ***
+            N Images:  40
+        N Dog Images:  33
+    N Not-Dog Images:   7
+ 
+    pct_correct_dogs:  93.9
+ pct_correct_notdogs: 100.0
+   pct_correct_breed:  81.8
+Real: cat                          Classifier: tabby, tabby cat              
+Real: cat                          Classifier: egyptian cat                  
+Real: beagle                       Classifier: walker hound, walker foxhound 
+Real: cat                          Classifier: norwegian elkhound, elkhound  
+Real: golden retriever             Classifier: leonberg                      
+Real: great pyrenees               Classifier: kuvasz                        
+
+** Total Elapsed Runtime: 0:0:12

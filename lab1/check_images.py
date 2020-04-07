@@ -61,11 +61,11 @@ def main():
     # results of run and puts statistics in a results statistics
     # dictionary (results_stats_dic)
     results_stats_dic = calculates_results_stats(result_dic)
-    check_calculating_results(result_dic, results_stats_dic)
+    # check_calculating_results(result_dic, results_stats_dic)
 
-    # TODO: 7. Define print_results() function to print summary results, 
+    # 7. Define print_results() function to print summary results, 
     # incorrect classifications of dogs and breeds if requested.
-    print_results()
+    print_results(result_dic, results_stats_dic, in_arg.arch, True, True)
 
     # 1. Define end_time to measure total program runtime
     # by collecting end time
@@ -78,13 +78,6 @@ def main():
           str( int(  ( (tot_time % 3600) / 60 )  ) ) + ":" + 
           str( int( ( (tot_time % 3600) % 60 ) ) ))
 
-
-
-# TODO: 7. Define all the function below. Notice that the input 
-# parameters and return values have been left in the function's docstrings. 
-# This is to provide guidance for achieving a solution similar to the 
-# instructor provided solution. Feel free to ignore this guidance as long as 
-# you are able to achieve the desired outcomes with this lab.
 
 def get_input_args():
     """
@@ -277,7 +270,8 @@ def calculates_results_stats(results_dic):
 
 
 
-def print_results():
+def print_results(results_dic, results_stats, model, print_incorrect_dogs = False,
+                  print_incorrect_breed = False):
     """
     Prints summary results on the classification and then prints incorrectly 
     classified dogs and incorrectly classified dog breeds if user indicates 
@@ -306,7 +300,37 @@ def print_results():
     Returns:
            None - simply printing results.
     """    
-    pass
+    # Prints summary statistics over the run
+    print("\n\n*** Results Summary for CNN Model Architecture",model.upper(), 
+          "***")
+    print("%20s: %3d" % ('N Images', results_stats['n_images']))
+    print("%20s: %3d" % ('N Dog Images', results_stats['n_dogs_img']))
+    print("%20s: %3d" % ('N Not-Dog Images', results_stats['n_notdogs_img']))
+
+    # Prints summary statistics (percentages) on Model Run
+    print(" ")
+    for key in results_stats:
+        if key[0] == "p":
+            print("%20s: %5.1f" % (key, results_stats[key]))
+
+
+    # process through results dict, printing incorrectly classified dogs
+    for key in results_dic:
+
+        # Pet Image Label is a Dog - Classified as NOT-A-DOG -OR- 
+        # Pet Image Label is NOT-a-Dog - Classified as a-DOG
+        if sum(results_dic[key][3:]) == 1:
+            print("Real: %-26s   Classifier: %-30s" % (results_dic[key][0],
+                                                        results_dic[key][1]))
+
+    # process through results dict, printing incorrectly classified breeds
+    for key in results_dic:
+
+        # Pet Image Label is-a-Dog, classified as-a-dog but is WRONG breed
+        if ( sum(results_dic[key][3:]) == 2 and
+            results_dic[key][2] == 0 ):
+            print("Real: %-26s   Classifier: %-30s" % (results_dic[key][0],
+                                                        results_dic[key][1]))
 
                 
                 

@@ -1,0 +1,21 @@
+
+
+*** Results Summary for CNN Model Architecture ALEXNET ***
+            N Images:  40
+        N Dog Images:  33
+    N Not-Dog Images:   7
+ 
+    pct_correct_dogs:  90.9
+ pct_correct_notdogs: 100.0
+   pct_correct_breed:  72.7
+Real: cat                          Classifier: african hunting dog, hyena dog, cape hunting dog, lycaon pictus
+Real: cat                          Classifier: tiger cat                     
+Real: cat                          Classifier: egyptian cat                  
+Real: beagle                       Classifier: english foxhound              
+Real: beagle                       Classifier: walker hound, walker foxhound 
+Real: boston terrier               Classifier: basenji                       
+Real: golden retriever             Classifier: tibetan mastiff               
+Real: golden retriever             Classifier: afghan hound, afghan          
+Real: great pyrenees               Classifier: kuvasz                        
+
+** Total Elapsed Runtime: 0:0:5
